@@ -16,7 +16,7 @@ class m190926_151924_products extends Migration
             'Id' => $this->primaryKey(),
             'Name' => $this->string()->notNull(),
             'Description' => $this->text(),
-            'ProductImage' => $this->string()->notNull(),
+            'ProductImage' => $this->string(),
             'Price' => $this->string()->notNull(),
             'Quantity' => $this->integer()->notNull(),
             'DiscountId' => $this->integer(),

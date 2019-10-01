@@ -12,13 +12,11 @@
             'Id',
             'Name',
             'Description:ntext',
-            'Price',
-            'DiscountId',
             [
                 'label' => 'Картинка',
                 'format' => 'raw',
                 'value' => function($data){
-                    return Html::img($data->ProductImage,[
+                    return Html::img($data->UrlImage,[
                         'alt'=>'yii2 - картинка в gridview',
                         'style' => 'width:50px;'
                     ]);
@@ -41,4 +39,4 @@
             ],
         ],
     ])?>
-    <?= Html::tag('a', 'Додати', ['href'=>Url::toRoute('/products/create')]) ?>
+    <?= Html::tag('a', 'Додати', ['href'=>Url::toRoute('/news/create')]) ?>

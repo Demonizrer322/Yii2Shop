@@ -26,6 +26,7 @@ class Products extends \yii\db\ActiveRecord
             [['Quantity', 'DiscountId', 'CategoryId'], 'integer'],
             [['Name', 'ProductImage', 'Price'], 'string', 'max' => 255],
             [['CategoryId'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['CategoryId' => 'Id']],
+            [['DiscountId'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['DiscountId' => 'Id']],
         ];
     }
 
@@ -41,7 +42,7 @@ class Products extends \yii\db\ActiveRecord
             'ProductImage' => 'Product Image',
             'Price' => 'Ціна',
             'Quantity' => 'Quantity',
-            'DiscountId' => 'Discount ID',
+            'DiscountId' => 'DiscountId',
             'CategoryId' => 'Category ID',
         ];
     }
@@ -53,4 +54,9 @@ class Products extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Category::className(), ['Id' => 'CategoryId']);
     }
+    public function getDiscount()
+    {
+        return $this->hasOne(Discount::className(), ['Id' => 'DiscountId']);
+    }
+
 }
