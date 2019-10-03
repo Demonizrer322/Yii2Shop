@@ -18,7 +18,7 @@ class Discounts extends \yii\db\ActiveRecord
      */
     public static function tableName()
     {
-        return 'discounts';
+        return '{{discounts}}';
     }
 
     /**
@@ -38,9 +38,9 @@ class Discounts extends \yii\db\ActiveRecord
     public function attributeLabels()
     {
         return [
-            'Id' => 'ID',
-            'Name' => 'Name',
-            'Size' => 'Size',
+            'Id' => 'Id',
+            'Name' => 'Назва',
+            'Size' => 'Розмір',
         ];
     }
 }

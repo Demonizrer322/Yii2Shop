@@ -35,13 +35,13 @@ class ProductsForm extends \yii\db\ActiveRecord
             [['Name', 'ProductImage', 'Price'], 'string', 'max' => 255],
             [['CategoryId'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['CategoryId' => 'Id']],
             [['DiscountId'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['DiscountId' => 'Id']],
-            [['ImageFile'], 'file', 'skipOnEmpty' => false, 'extensions' => 'png, jpg'],
+            [['ImageFile'], 'file', 'skipOnEmpty' => true, 'extensions' => 'png, jpg, jfif'],
         ];
     }
 
     public function upload()
     {
-        if ($this->validate("Name, Price, Description, CategoryId, DiscountId")) {
+        if (($this->ImageFile != null) && ($this->validate("Name, Price, Description, CategoryId, DiscountId"))) {
             $FileName=md5(microtime());
             $this->ProductImage = '../../uploads/' . $FileName . '.' . $this->ImageFile->extension;
             $this->ImageFile->saveAs($this->ProductImage);

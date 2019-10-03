@@ -30,6 +30,14 @@ class m190926_151924_products extends Migration
             'Id',
             'CASCADE'
         );
+        $this->addForeignKey(
+            'fk-products-DiscountId',
+            'products',
+            'DiscountId',
+            'discounts',
+            'Id',
+            'CASCADE'
+        );
     }
 
     /**

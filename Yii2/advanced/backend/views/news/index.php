@@ -16,7 +16,7 @@
                 'label' => 'Картинка',
                 'format' => 'raw',
                 'value' => function($data){
-                    return Html::img($data->UrlImage,[
+                    return Html::img($data->NewImage,[
                         'alt'=>'yii2 - картинка в gridview',
                         'style' => 'width:50px;'
                     ]);
