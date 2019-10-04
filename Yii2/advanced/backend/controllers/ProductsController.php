@@ -20,8 +20,8 @@ class ProductsController extends \yii\web\Controller
     {
         /** $model = Products::find()->All(); При верстці сторінки - не потрібно! */
         $model=Products::find()
-        ->joinWith('category');
-        // ->joinWith('discounts');
+        ->joinWith('category')
+        ->joinWith('discounts');
         $dataProvider = new ActiveDataProvider(['query' => $model]);
         return $this->render('index', ['dataProvider'=>$dataProvider]);
     }

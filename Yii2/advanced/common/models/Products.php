@@ -42,8 +42,8 @@ class Products extends \yii\db\ActiveRecord
             'ProductImage' => 'Product Image',
             'Price' => 'Ціна',
             'Quantity' => 'Quantity',
-            'DiscountId' => 'DiscountId',
-            'CategoryId' => 'Category ID',
+            'discounts.Size' => 'Знижка',
+            'category.Name' => 'Категорія',
         ];
     }
 
@@ -54,9 +54,9 @@ class Products extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Category::className(), ['Id' => 'CategoryId']);
     }
-    public function getDiscount()
+    public function getDiscounts()
     {
-        return $this->hasOne(Discount::className(), ['Id' => 'DiscountId']);
+        return $this->hasOne(Discounts::className(), ['Id' => 'DiscountId']);
     }
 
 }

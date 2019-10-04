@@ -14,7 +14,7 @@
             'Description:ntext',
             'Price',
             'category.Name',
-            // 'discounts.Size',
+            'discounts.Size',
             [
                 'label' => 'Картинка',
                 'format' => 'raw',

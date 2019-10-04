@@ -76,4 +76,8 @@ class ProductsForm extends \yii\db\ActiveRecord
     {
         return $this->hasOne(Category::className(), ['Id' => 'CategoryId']);
     }
+    public function getDiscounts()
+    {
+        return $this->hasOne(Discounts::className(), ['Id' => 'DiscountId']);
+    }
 }
