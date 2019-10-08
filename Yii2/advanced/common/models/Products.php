@@ -26,7 +26,7 @@ class Products extends \yii\db\ActiveRecord
             [['Quantity', 'DiscountId', 'CategoryId'], 'integer'],
             [['Name', 'ProductImage', 'Price'], 'string', 'max' => 255],
             [['CategoryId'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['CategoryId' => 'Id']],
-            [['DiscountId'], 'exist', 'skipOnError' => true, 'targetClass' => Category::className(), 'targetAttribute' => ['DiscountId' => 'Id']],
+            [['DiscountId'], 'exist', 'skipOnError' => true, 'targetClass' => Discounts::className(), 'targetAttribute' => ['DiscountId' => 'Id']],
         ];
     }
 

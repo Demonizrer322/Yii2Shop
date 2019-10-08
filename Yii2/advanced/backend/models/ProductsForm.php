@@ -3,6 +3,7 @@
 namespace backend\models;
 use yii\web\UploadedFile; 
 use common\models\Category;
+use common\models\Discounts;
  
 class ProductsForm extends \yii\db\ActiveRecord
 {

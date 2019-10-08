@@ -7,7 +7,7 @@ class NewsForm extends \yii\db\ActiveRecord
 {
     public $Name;
     public $Description;
-    public $NewImage;
+    public $UrlImage;
     public $ImageFile;
 
     /**
@@ -35,8 +35,8 @@ class NewsForm extends \yii\db\ActiveRecord
     {
         if (($this->ImageFile != null) && ($this->validate("Name, Description"))) {
             $FileName=md5(microtime());
-            $this->NewImage = '../../uploads/' . $FileName . '.' . $this->ImageFile->extension;
-            $this->ImageFile->saveAs($this->NewImage);
+            $this->UrlImage = '../../uploads/' . $FileName . '.' . $this->ImageFile->extension;
+            $this->ImageFile->saveAs($this->UrlImage);
             return true;
         } else {
             return false;
@@ -53,7 +53,7 @@ class NewsForm extends \yii\db\ActiveRecord
             'Id' => 'Id',
             'Name' => 'Name',
             'Description' => 'Description',
-            'ProductImage' => 'Product Image',
+            'UrlImage' => 'New Image',
         ];
     }
 
