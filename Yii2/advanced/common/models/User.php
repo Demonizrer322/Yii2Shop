@@ -55,6 +55,10 @@ class User extends ActiveRecord implements IdentityInterface
         return [
             ['status', 'default', 'value' => self::STATUS_INACTIVE],
             ['status', 'in', 'range' => [self::STATUS_ACTIVE, self::STATUS_INACTIVE, self::STATUS_DELETED]],
+            [['username'], 'required', 'message' => 'Error'],
+            [['user_id'], 'integer'],
+            [['username'], 'string', 'max' => 255],
+            [['id'], 'exist', 'skipOnError' => true, 'targetClass' => AuthAssignment::className(), 'targetAttribute' => ['user_id' => 'id']],
         ];
     }
 
@@ -205,5 +209,9 @@ class User extends ActiveRecord implements IdentityInterface
     public function removePasswordResetToken()
     {
         $this->password_reset_token = null;
+    }
+    public function getauth_assignment()
+    {
+        return $this->hasOne(AuthAssignment::className(), ['user_id' => 'id']);
     }
 }

@@ -1,20 +1,21 @@
 <?php
+
 namespace backend\controllers;
 
 use Yii;
-use yii\web\Controller;
-use yii\filters\VerbFilter;
+use backend\models\UserForm;
+use common\models\User;
+use common\models\AuthAssignment;
+use yii\web\UploadedFile;
+use yii\db\ActiveRecord;
 use yii\filters\AccessControl;
-use common\models\LoginForm;
+use yii\data\ActiveDataProvider; /** При верстці сторінки - не потрібно! */
+use yii\helpers\Html;
+use yii\widgets\ActiveForm;
+use yii\filters\VerbFilter;
 
-/**
- * Site controller
- */
-class SiteController extends Controller
+class UserController extends \yii\web\Controller
 {
-    /**
-     * {@inheritdoc}
-     */
     public function behaviors()
     {
         return [
@@ -50,61 +51,32 @@ class SiteController extends Controller
             ],
         ];
     }
-
-    /**
-     * {@inheritdoc}
-     */
-    public function actions()
-    {
-        return [
-            'error' => [
-                'class' => 'yii\web\ErrorAction',
-            ],
-        ];
-    }
-
-    /**
-     * Displays homepage.
-     *
-     * @return string
-     */
     public function actionIndex()
     {
-        return $this->render('index');
+        $model = User::find()->joinWith('auth_assignment');
+        $dataProvider = new ActiveDataProvider(['query' => $model]);
+        return $this->render('index', ['dataProvider'=>$dataProvider]);
     }
-
-    /**
-     * Login action.
-     *
-     * @return string
-     */
-    public function actionLogin()
+    public function actionEdit($id)
     {
-        if (!Yii::$app->user->isGuest) {
-            return $this->goHome();
-        }
+        $model = User::findOne($id);
+        $role=Yii::$app->authManager->getRoles();
 
-        $model = new LoginForm();
-        if ($model->load(Yii::$app->request->post()) && $model->login()) {
-            return $this->goBack();
-        } else {
-            $model->password = '';
+        if (Yii::$app->request->isPost) {
+            $role=Yii::$app->request->post('Select_Role');
+            $auth = Yii::$app->authManager;
+            $auth->revokeAll($id);
+            $adminRole=$auth->getRole($role);
+            $auth->assign($adminRole, $id);
+            return $this->redirect(['index']);
 
-            return $this->render('login', [
-                'model' => $model,
-            ]);
         }
+        return $this->render('edit', ['model'=>$model, 'role'=>$role]);
     }
-
-    /**
-     * Logout action.
-     *
-     * @return string
-     */
-    public function actionLogout()
-    {
-        Yii::$app->user->logout();
-
-        return $this->goHome();
+    public function actionDelete($id){
+        $auth = Yii::$app->authManager;
+        $auth->revokeAll($id);
+        $user = User::findOne($id)->delete();
+        $this->redirect(['user/index']);
     }
 }

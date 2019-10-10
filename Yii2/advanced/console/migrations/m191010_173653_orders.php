@@ -32,7 +32,7 @@ class m191008_161441_orders extends Migration
             'orders',
             'CustomerId',
             'user',
-            'Id',
+            'id',
             'CASCADE'
         );
     }

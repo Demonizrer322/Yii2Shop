@@ -8,6 +8,7 @@ use backend\models\SearchDiscount;
 use yii\web\Controller;
 use yii\web\NotFoundHttpException;
 use yii\filters\VerbFilter;
+use yii\filters\AccessControl;
 
 /**
  * DiscountsController implements the CRUD actions for Discounts model.
@@ -18,6 +19,41 @@ class DiscountsController extends Controller
      * Lists all Discounts models.
      * @return mixed
      */
+    public function behaviors()
+    {
+        return [
+            'access' => [
+                'class' => AccessControl::className(),
+                'denyCallback' => function ($true, $action){
+                    Echo ('У вас нет доступа к этой странице');
+                    // return $this->render('home');
+                },
+                'rules' => [
+                    [
+                        'actions' => ['login', 'index', 'create', 'edit', 'delete'],
+                        'allow' => true,
+                        'roles' => ['Admin'],
+                    ],
+                    [
+                        'actions' => ['login', 'index'],
+                        'allow' => true,
+                        'roles' => ['Manager','Customer'],
+                    ],
+                    [
+                        'actions' => ['index'],
+                        'allow' => true,
+                        'roles' => ['Guest'],
+                    ],
+                ],
+            ],
+            'verbs' => [
+                'class' => VerbFilter::className(),
+                'actions' => [
+                    'delete' => ['POST'],
+                ],
+            ],
+        ];
+    }
     public function actionIndex()
     {
         $searchModel = new SearchDiscount();
