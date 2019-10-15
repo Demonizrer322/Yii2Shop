@@ -14,6 +14,9 @@ use frontend\models\PasswordResetRequestForm;
 use frontend\models\ResetPasswordForm;
 use frontend\models\SignupForm;
 use frontend\models\ContactForm;
+use common\models\Products;
+use common\models\Discounts;
+use common\models\Category;
 
 /**
  * Site controller
@@ -143,6 +146,20 @@ class SiteController extends Controller
     public function actionAbout()
     {
         return $this->render('about');
+    }
+    public function actionShop()
+    {
+        $product = Products::find()->all();
+        $discount = Discounts::find()->all();
+        $category = Category::find()->all();
+        return $this->render('shop', ['products' => $product, 'category' => $category, 'discount' => $discount]);
+    }
+    public function actionProduct($Id)
+    {
+        $product = Products::findOne($Id);
+        $discount = Discounts::find()->all();
+        $category = Category::find()->all();
+        return $this->render('product', ['products' => $product, 'category' => $category, 'discount' => $discount]);
     }
 
     /**
