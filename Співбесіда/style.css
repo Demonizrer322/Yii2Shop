@@ -1,0 +1,22 @@
+.flag {
+    width: 400px;
+    height: 250px;
+    border: 1px solid black;
+}
+.flag::after {
+    content: "";
+    background-color: red;
+    border-radius: 50%;
+    margin: auto;
+    width: 100px;
+    height: 100px;
+}
+
+
+<a>
+  
+</a>
+
+$( "a" ).click(function() {
+    alert( "Good day" );
+  });
